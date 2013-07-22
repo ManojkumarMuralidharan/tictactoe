@@ -7,7 +7,40 @@ var Tictac = function (player1, player2) {
     var gamerTimer = new Timer();
 
     
+    function drawScoreBoard(){
+        var board= document.getElementById('board');
+        var parentOfBoard=board.parentNode;
+        var scoreBoard=document.createElement('div');
+        scoreBoard.style.width='306px';
+        scoreBoard.style.float='left';
 
+
+
+        var playerXcol=document.createElement('div');
+        playerXcol.id="X_Score_Column";
+        playerXcol.className='score_column';
+        var playerXcolTitle=document.createElement('div');
+        playerXcolTitle.id='X_ScoreTitle';
+        playerXcolTitle.innerHTML='Player X';
+        playerXcol.appendChild(playerXcolTitle);
+        playerXcolTitle.style.borderBottom='1px solid';
+
+        var playerOcol=document.createElement('div');
+        playerOcol.id="O_Score_Column";
+        playerOcol.className='score_column';
+        var playerOcolTitle=document.createElement('div');
+        playerOcolTitle.id='O_ScoreTitle';
+        playerOcolTitle.innerHTML='Player O';
+        playerOcol.appendChild(playerOcolTitle);
+        playerOcolTitle.style.borderBottom='1px solid';
+
+        scoreBoard.appendChild(playerXcol);
+        scoreBoard.appendChild(playerOcol);
+
+        scoreBoard.id='scoreBoard';
+        parentOfBoard.insertBefore(scoreBoard,board.nextSibling);
+
+    };
 
     function resetGameSet() {
         document.getElementById('board').parentNode.removeChild(document.getElementById('overlay'));
@@ -212,6 +245,8 @@ var Tictac = function (player1, player2) {
         var board = document.createElement('div');
         var body = document.getElementsByTagName('body'); //Change to a specific element by id
         board.id = 'board';
+        board.style.width='306px';
+        board.style.float='left';
         gameBoard
         body[0].appendChild(board);
         for (; rows_counter < 3; rows_counter++) {
@@ -294,6 +329,7 @@ var Tictac = function (player1, player2) {
         board.appendChild(optionsDiv);
 
         document.getElementById('board').parentNode.appendChild(overlayDiv);
+        drawScoreBoard();
         //var gamerTimer = new Timer();
         //gameTimer.initiateTimer();
         

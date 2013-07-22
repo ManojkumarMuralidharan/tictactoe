@@ -56,3 +56,12 @@ body {
     text-align: left;
 
 }
+
+.score_column{
+    float:left;
+    width:150px;
+    border:1px solid #000000;
+    text-align:center;
+    height: 306px;
+
+}
