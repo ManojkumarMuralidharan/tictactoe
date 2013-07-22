@@ -19,6 +19,15 @@ var Tictac = function (player1, player2) {
         document.getElementById('startGame').onclick = startGame;
     };
 
+    function clearBoard(){
+        var board = document.getElementById('board');
+        for(var rows=0;rows<3;rows++){
+            for(var cols=0;cols<3;cols++){
+                board.childNodes[rows].childNodes[cols].innerHTML='';
+            }
+        }
+    };
+
 
     var Messages = function (type) {
         var name;
@@ -129,6 +138,7 @@ var Tictac = function (player1, player2) {
             if (!clicked) {
                 clicked = true;
                 gamerTimer.stopTimer();
+                gamerTimer.resetTimer();
                 var symbol = playerContext.getCurrentPlayerSymbol();
                 this.innerHTML = symbol;
                 playerContext.reduceTurns();
@@ -142,6 +152,11 @@ var Tictac = function (player1, player2) {
                         playerContext.resetPlayerTurn();
                         document.getElementById('overlay').className = 'overlay';
                         alert(playerContext.getCurrentPlayerName()+' Wins');
+                        clearBoard();
+                        gamerTimer.stopTimer();
+                        gamerTimer.resetTimer();
+                        document.getElementById('timerDiv').innerHTML='';
+                        return;
 
                     }
                     if(!playerContext.isAnyMovesLeft()){
@@ -170,13 +185,15 @@ var Tictac = function (player1, player2) {
                     document.getElementById('overlay').className = 'overlay';
                     document.getElementById('timerDiv').innerHTML='';
                     alert('Game Over! Times Up ! '+playerContext.getCurrentPlayerName()+' Wins');
+                    clearBoard();
+                    totalTime=5;
                 }
             }, 1000);
         };
 
         this.stopTimer=function(){
             clearInterval(id);            
-            this.resetTimer();
+            
         };
 
         this.resetTimer=function(){
@@ -186,11 +203,7 @@ var Tictac = function (player1, player2) {
     };
 
     function buildBoard() {
-        a= [
-        [false, false, false],
-        [false, false, false],
-        [false, false, false]
-    ];
+      
         var gameBoard = document.createElement('div');
         
         var rows, cols;
@@ -287,6 +300,11 @@ var Tictac = function (player1, player2) {
     };
 
     function initGame() {
+          a= [
+        [false, false, false],
+        [false, false, false],
+        [false, false, false]
+    ];
         var i, j, k = 0;
 
         var boxes = document.getElementsByClassName('boxes');
