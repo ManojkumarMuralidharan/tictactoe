@@ -264,6 +264,8 @@ var Tictac = function (player1, player2) {
 
                 cols = document.createElement('div');
                 cols.className = 'boxes';
+                var cell=cols;
+                cell.id=rows_counter+','+col_counter;
 
                 rows.appendChild(cols);
             }
