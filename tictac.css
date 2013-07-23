@@ -65,3 +65,38 @@ body {
     height: 306px;
 
 }
+
+
+.blink_cell 
+{
+    -webkit-animation-name: blink;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;      
+    background: url('atat-skull.png') left center no-repeat;
+    width: 186px;
+	height: 123px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 300; 
+}
+
+@-webkit-keyframes blink{
+	 0% {
+        -webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0);
+		-moz-box-shadow:  0px 0px 0px rgba(0,0,0,0);
+		box-shadow: 0px 0px 15px rgba(0,0,0,0);
+    }
+    50% {
+       -webkit-box-shadow: 0px 0px 15px rgba(74, 107, 130, 0.89);
+		-moz-box-shadow: 0px 0px 15px rgba(74, 107, 130, 0.89);
+		box-shadow: 0px 0px 15px rgba(74, 107, 130, 0.89);
+    }
+   
+    100% {
+        -webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0);
+		-moz-box-shadow: 0px 0px 15px rgba(0,0,0,0);
+		box-shadow: 0px 0px 15px rgba(0,0,0,0);
+    }
+	
+}
