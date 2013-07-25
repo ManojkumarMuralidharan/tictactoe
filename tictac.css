@@ -59,8 +59,8 @@ body {
 
 .score_column{
     float:left;
-    width:150px;
-    border:1px solid #000000;
+    width:300px;
+    
     text-align:center;
     height: 306px;
 
@@ -72,13 +72,7 @@ body {
     -webkit-animation-name: blink;
     -webkit-animation-duration: 1s;
     -webkit-animation-iteration-count: infinite;      
-    background: url('atat-skull.png') left center no-repeat;
-    width: 186px;
-	height: 123px;
-	position: absolute;
-	top: 0;
-	right: 0;
-	z-index: 300; 
+     border: 1px solid #000000;
 }
 
 @-webkit-keyframes blink{
@@ -99,4 +93,18 @@ body {
 		box-shadow: 0px 0px 15px rgba(0,0,0,0);
     }
 	
+}
+
+.score_paper{
+    background: #F0F0F0;
+-webkit-border-bottom-right-radius: 500px 30px;
+-webkit-border-top-right-radius: 5px 100px;
+-moz-border-radius-bottomright: 500px 30px;
+-moz-border-radius-topright: 5px 100px;
+border-radius-bottomright: 500px 30px;
+border-radius-topright: 5px 100px;
+background: -webkit-gradient( linear, left top, left bottom, from(#81cbbc), color-stop(5%, rgb(245, 245, 245)) );
+-webkit-background-size: 100% 20px;
+height: 150px;
+
 }

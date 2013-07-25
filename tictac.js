@@ -19,25 +19,33 @@ var Tictac = function (player1, player2) {
         var playerXcol=document.createElement('div');
         playerXcol.id="X_Score_Column";
         playerXcol.className='score_column';
+
         var playerXcolTitle=document.createElement('div');
         playerXcolTitle.id='X_ScoreTitle';
         playerXcolTitle.innerHTML='Player X';
         playerXcol.appendChild(playerXcolTitle);
-        playerXcolTitle.style.borderBottom='1px solid';
+
+        playerXcolTitle.style.float='left';
+        playerXcolTitle.style.width='50%';
 
         var playerOcol=document.createElement('div');
         playerOcol.id="O_Score_Column";
         playerOcol.className='score_column';
+        
         var playerOcolTitle=document.createElement('div');
         playerOcolTitle.id='O_ScoreTitle';
         playerOcolTitle.innerHTML='Player O';
-        playerOcol.appendChild(playerOcolTitle);
-        playerOcolTitle.style.borderBottom='1px solid';
+        
+        playerXcol.appendChild(playerOcolTitle);
+
+        playerOcolTitle.style.float='left';
+        playerOcolTitle.style.width='50%';
 
         scoreBoard.appendChild(playerXcol);
-        scoreBoard.appendChild(playerOcol);
+       // scoreBoard.appendChild(playerOcol);
 
         scoreBoard.id='scoreBoard';
+        scoreBoard.className='score_paper';
         parentOfBoard.insertBefore(scoreBoard,board.nextSibling);
 
     };
@@ -45,6 +53,7 @@ var Tictac = function (player1, player2) {
     function resetGameSet() {
         document.getElementById('board').parentNode.removeChild(document.getElementById('overlay'));
         document.getElementById('board').parentNode.removeChild(document.getElementById('board'));
+        document.getElementById('scoreBoard').parentNode.removeChild(document.getElementById('scoreBoard'));
         buildBoard();
         playerContext.resetPlayerTurn();
         document.getElementById('overlay').className = 'overlay';
@@ -57,6 +66,7 @@ var Tictac = function (player1, player2) {
         for(var rows=0;rows<3;rows++){
             for(var cols=0;cols<3;cols++){
                 board.childNodes[rows].childNodes[cols].innerHTML='';
+                board.childNodes[rows].childNodes[cols].className='boxes';
             }
         }
     };
@@ -183,7 +193,7 @@ var Tictac = function (player1, player2) {
                         var winMessage = new Messages('Game Over');
                         winMessage.setMessage(playerContext.getCurrentPlayerName() + ' Wins').addToQue();
                         playerContext.resetPlayerTurn();
-                        document.getElementById('overlay').className = 'overlay';
+                       // document.getElementById('overlay').className = 'overlay';
                         alert(playerContext.getCurrentPlayerName()+' Wins');
                         clearBoard();
                         gamerTimer.stopTimer();
@@ -376,7 +386,14 @@ var Tictac = function (player1, player2) {
             }
             i++;
         };
-        if (isWinner(i)) return true;
+        if (isWinner(i)) {
+            i=0;
+            while (i < a[0].length) {
+            document.getElementById(row+','+i).className+=' blink_cell';
+            i++;
+            };
+            return true;
+        }
         //Check column for all values
         i = 0;
         while (i < a.length) {
@@ -385,7 +402,15 @@ var Tictac = function (player1, player2) {
             }
             i++;
         };
-        if (isWinner(i)) return true;
+        if (isWinner(i)) {
+            i=0;
+            while (i < a.length) {
+            document.getElementById(i+','+col).className+=' blink_cell';
+            i++;
+            };
+            return true;
+        }
+
 
 
         if (row == col) {
@@ -396,7 +421,15 @@ var Tictac = function (player1, player2) {
                 }
                 i++;
             };
-            if (isWinner(i)) return true;
+        if (isWinner(i)) {
+            i=0;
+            while (i < a[0].length) {
+            document.getElementById(i+','+i).className+=' blink_cell';
+            i++;
+            };
+            return true;
+        }
+
             
         }
 
@@ -408,7 +441,15 @@ var Tictac = function (player1, player2) {
                 }
                 i++;
             };
-            if (isWinner(i)) return true;
+        if (isWinner(i)) {
+            i=0;
+            while (i < a[0].length) {
+            document.getElementById(i+','+(a.length-1-i)).className+=' blink_cell';
+            i++;
+            };
+            return true;
+        }
+
         }
         return false;
     };
