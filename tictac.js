@@ -78,7 +78,7 @@ var Tictac = function (player1, player2) {
         timerElement_text.id='timerDiv2';
         timerElement_text.innerHTML='00:00';
 
-        //timerElement.id=
+
         scoreBoard.appendChild(timerElement);
         scoreBoard.appendChild(timerElement_text);
 
