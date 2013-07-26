@@ -86,10 +86,17 @@ var Tictac = function (player1, player2) {
         * Message Board
         *
         */
-        var errorDiv = document.createElement('div');
-        errorDiv.id = 'errorDiv';
-        errorDiv.className='message_board';
-        scoreBoard.appendChild(errorDiv);
+        var messageBoard = document.createElement('div');
+        var messageBoard_title=document.createElement('div');
+        messageBoard_title.id='messageBoard_title';
+        messageBoard_title.innerHTML="Message Board";
+        messageBoard.id = 'errorDiv';
+        messageBoard.className='message_board';
+        messageBoard_title.className='message_board_title';
+        scoreBoard.appendChild(messageBoard_title);
+        scoreBoard.appendChild(messageBoard);
+
+
         
 
         parentOfBoard.insertBefore(scoreBoard,board.nextSibling);

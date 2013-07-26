@@ -128,7 +128,7 @@ body {
     border-radius-topright: 5px 100px;
     background: -webkit-gradient( linear, left top, left bottom, from(#81cbbc), color-stop(5%, rgb(245, 245, 245)) );
     -webkit-background-size: 100% 20px;
-    height: 150px;
+    height: 160px;
     width:306px;
     float:left;
     text-align: center;
@@ -154,11 +154,38 @@ body {
 .message_board{
 
  overflow-y:scroll;   
- height: 150px;  
+ height: 125px;  
  width: 306px;
- border: 1px solid #000000;
+ 
  background: -webkit-gradient( linear, left top, left bottom, from(#81cbbc), color-stop(5%, rgb(245, 245, 245)) );
 -webkit-background-size: 100% 20px;
  border-radius: 3px;
 
 }
+.message_board_title{
+    border: 1px solid #f3efc3;
+    border-radius: 3px;
+    background: #f3efc3;
+    height: 20px;
+}
+
+#errorDiv::-webkit-scrollbar {
+    width: 10px;
+    }
+#errorDiv::-webkit-scrollbar-track {
+    background: #CCC;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1);
+    }
+#errorDiv::-webkit-scrollbar-thumb {
+    background: #222;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2);
+    }
+#errorDiv::-webkit-scrollbar-thumb:hover {
+    background: #AAA;
+    }
+#errorDiv::-webkit-scrollbar-thumb:active {
+    background: #888;
+    -webkit-box-shadow: inset 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+
