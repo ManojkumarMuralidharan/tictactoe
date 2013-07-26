@@ -52,17 +52,40 @@ body {
     opacity:0.4;
     filter: alpha(opacity=50);
 }
+
 .timer{
     text-align: left;
+    position: relative;
+    top: 35px;
+    left: 108px;
+    width: 90px;
+    height: 80px;
+    background-color: blue;
+    z-index: 2;
+    opacity: 0.4;
+    filter: alpha(opacity=50);
+    border-radius: 20px;
+
+}
+
+.timer_text{
+    position: relative; 
+    top: -85px; 
+    left: 108px; 
+    width: 90px; 
+    height: 80px; 
+    color: #000000;
+    font-weight: bold;
+    font-size: 25px;
 
 }
 
 .score_column{
     float:left;
-    width:300px;
+    width:50%;
     
     text-align:center;
-    height: 306px;
+    height: 150px;
 
 }
 
@@ -97,14 +120,45 @@ body {
 
 .score_paper{
     background: #F0F0F0;
--webkit-border-bottom-right-radius: 500px 30px;
--webkit-border-top-right-radius: 5px 100px;
--moz-border-radius-bottomright: 500px 30px;
--moz-border-radius-topright: 5px 100px;
-border-radius-bottomright: 500px 30px;
-border-radius-topright: 5px 100px;
-background: -webkit-gradient( linear, left top, left bottom, from(#81cbbc), color-stop(5%, rgb(245, 245, 245)) );
+    -webkit-border-bottom-right-radius: 500px 30px;
+    -webkit-border-top-right-radius: 5px 100px;
+    -moz-border-radius-bottomright: 500px 30px;
+    -moz-border-radius-topright: 5px 100px;
+    border-radius-bottomright: 500px 30px;
+    border-radius-topright: 5px 100px;
+    background: -webkit-gradient( linear, left top, left bottom, from(#81cbbc), color-stop(5%, rgb(245, 245, 245)) );
+    -webkit-background-size: 100% 20px;
+    height: 150px;
+    width:306px;
+    float:left;
+    text-align: center;
+
+}
+.score_number{
+
+    height: 120;
+    font-size: 100px;
+    font-weight: 100;
+}
+
+.win_boxes{
+    width: 100px;
+    height: 100px;
+    border:1px solid #000000;
+    float:left;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 100;   
+}
+
+.message_board{
+
+ overflow-y:scroll;   
+ height: 150px;  
+ width: 306px;
+ border: 1px solid #000000;
+ background: -webkit-gradient( linear, left top, left bottom, from(#81cbbc), color-stop(5%, rgb(245, 245, 245)) );
 -webkit-background-size: 100% 20px;
-height: 150px;
+ border-radius: 3px;
 
 }

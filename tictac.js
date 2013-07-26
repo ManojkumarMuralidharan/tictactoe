@@ -10,43 +10,90 @@ var Tictac = function (player1, player2) {
     function drawScoreBoard(){
         var board= document.getElementById('board');
         var parentOfBoard=board.parentNode;
+
+        /*
+        *   Actual Score Board
+        *
+        */
         var scoreBoard=document.createElement('div');
-        scoreBoard.style.width='306px';
-        scoreBoard.style.float='left';
-
-
-
-        var playerXcol=document.createElement('div');
-        playerXcol.id="X_Score_Column";
-        playerXcol.className='score_column';
-
-        var playerXcolTitle=document.createElement('div');
-        playerXcolTitle.id='X_ScoreTitle';
-        playerXcolTitle.innerHTML='Player X';
-        playerXcol.appendChild(playerXcolTitle);
-
-        playerXcolTitle.style.float='left';
-        playerXcolTitle.style.width='50%';
-
-        var playerOcol=document.createElement('div');
-        playerOcol.id="O_Score_Column";
-        playerOcol.className='score_column';
-        
-        var playerOcolTitle=document.createElement('div');
-        playerOcolTitle.id='O_ScoreTitle';
-        playerOcolTitle.innerHTML='Player O';
-        
-        playerXcol.appendChild(playerOcolTitle);
-
-        playerOcolTitle.style.float='left';
-        playerOcolTitle.style.width='50%';
-
-        scoreBoard.appendChild(playerXcol);
-       // scoreBoard.appendChild(playerOcol);
-
         scoreBoard.id='scoreBoard';
         scoreBoard.className='score_paper';
+
+
+
+        /*
+        *   X's Score Coloumn Div
+        *   
+        */
+        var playerXcolTitle=document.createElement('div');
+        playerXcolTitle.id='X_Score_Column';
+        playerXcolTitle.innerHTML='<div>Player X</div>';
+        playerXcolTitle.className='score_column';
+        scoreBoard.appendChild(playerXcolTitle);
+
+        /*
+        *   Y's Score Coloumn Div
+        *   
+        */
+        
+        var playerOcolTitle=document.createElement('div');
+        playerOcolTitle.id='O_ScoreColumn';
+        playerOcolTitle.innerHTML='<div>Player O</div>';
+        playerOcolTitle.className='score_column';
+        scoreBoard.appendChild(playerOcolTitle);
+
+        /*
+        *   X's Actual Score in Number
+        *   
+        */
+
+
+        var playerXscore=document.createElement('div');
+        playerXscore.id="X_Score";
+        playerXscore.className='score_number';
+        playerXscore.innerHTML='0';
+        playerXcolTitle.appendChild(playerXscore);
+
+        /*
+        *   Y's Actual Score in Number
+        *   
+        */
+
+
+        var playerOscore=document.createElement('div');
+        playerOscore.id='O_Score';
+        playerOscore.innerHTML='0';
+        playerOscore.className='score_number';
+        playerOcolTitle.appendChild(playerOscore);
+
+
+        /*
+        *   Timer Div
+        *   
+        */
+        var timerElement = document.createElement('div');
+        timerElement.className='timer';
+        timerElement_text=document.createElement('div');
+        timerElement_text.className='timer_text';
+        timerElement_text.id='timerDiv2';
+        timerElement_text.innerHTML='00:00';
+
+        //timerElement.id=
+        scoreBoard.appendChild(timerElement);
+        scoreBoard.appendChild(timerElement_text);
+
+        /*
+        * Message Board
+        *
+        */
+        var errorDiv = document.createElement('div');
+        errorDiv.id = 'errorDiv';
+        errorDiv.className='message_board';
+        scoreBoard.appendChild(errorDiv);
+        
+
         parentOfBoard.insertBefore(scoreBoard,board.nextSibling);
+
 
     };
 
@@ -67,8 +114,13 @@ var Tictac = function (player1, player2) {
             for(var cols=0;cols<3;cols++){
                 board.childNodes[rows].childNodes[cols].innerHTML='';
                 board.childNodes[rows].childNodes[cols].className='boxes';
+                board.childNodes[rows].childNodes[cols].style.background='';
             }
         }
+        document.getElementById('player1textbox').removeAttribute("disabled");
+        document.getElementById('player2textbox').removeAttribute("disabled");
+        document.getElementById('player1textbox').value='';
+        document.getElementById('player2textbox').value='';
     };
 
 
@@ -120,7 +172,7 @@ var Tictac = function (player1, player2) {
 
         this.addToQue = function () {
             document.getElementById('errorDiv').appendChild(errorHolderDiv);
-            var timer = setInterval(function () {
+            /*var timer = setInterval(function () {
 
                 if (errorSpan.style.opacity <= 0.1) {
                     clearInterval(timer);
@@ -131,7 +183,7 @@ var Tictac = function (player1, player2) {
                     errorSpan.style.filter = 'alpha(opacity=' + errorSpan.style.opacity * 100 + ")";
 
                 }
-            }, 800);
+            }, 800);*/
         };
 
         return this;
@@ -150,14 +202,19 @@ var Tictac = function (player1, player2) {
                 playerNameMissing.setMessage('Player 2\'s Name missing').addToQue();
 
             }
+            
             return;
 
         }
 
         playerContext.setPlayer1Name(document.getElementById('player1textbox').value);
         playerContext.setPlayer2Name(document.getElementById('player2textbox').value);
-        document.getElementById('overlay').className = '';
+        document.getElementById('player1textbox').disabled='true';
+        document.getElementById('player2textbox').disabled='true';
+        
         initGame();
+        document.getElementById('timerDiv2').innerHTML = '00:05';
+        document.getElementById('overlay').className = '';
         document.getElementById('startGame').onclick = startGame;
         document.getElementById('resetGame').onclick = resetGameSet;
 
@@ -193,12 +250,14 @@ var Tictac = function (player1, player2) {
                         var winMessage = new Messages('Game Over');
                         winMessage.setMessage(playerContext.getCurrentPlayerName() + ' Wins').addToQue();
                         playerContext.resetPlayerTurn();
-                       // document.getElementById('overlay').className = 'overlay';
                         alert(playerContext.getCurrentPlayerName()+' Wins');
                         clearBoard();
+                        document.getElementById('overlay').className = 'overlay';
                         gamerTimer.stopTimer();
                         gamerTimer.resetTimer();
-                        document.getElementById('timerDiv').innerHTML='';
+                       // document.getElementById('timerDiv').innerHTML='';
+                        document.getElementById('timerDiv2').innerHTML='00:00';
+                       
                         return;
 
                     }
@@ -220,13 +279,15 @@ var Tictac = function (player1, player2) {
         var totalTime=5;
         this.initiateTimer=function(){
             id=setInterval(function(){
-                document.getElementById('timerDiv').innerHTML=playerContext.getCurrentPlayerName()+':'+totalTime+" seconds left";
+                //document.getElementById('timerDiv').innerHTML=playerContext.getCurrentPlayerName()+':'+totalTime+" seconds left";
+                document.getElementById('timerDiv2').innerHTML='00:0'+totalTime;
                 totalTime--;
                 if(totalTime==-1){
                     clearInterval(id);     
                     playerContext.nextPlayer();
                     document.getElementById('overlay').className = 'overlay';
-                    document.getElementById('timerDiv').innerHTML='';
+                   // document.getElementById('timerDiv').innerHTML='';
+                    document.getElementById('timerDiv2').innerHTML='';
                     alert('Game Over! Times Up ! '+playerContext.getCurrentPlayerName()+' Wins');
                     clearBoard();
                     totalTime=5;
@@ -315,9 +376,7 @@ var Tictac = function (player1, player2) {
         timerDiv.id='timerDiv';
         timerDiv.className='timer';
 
-        var errorDiv = document.createElement('div');
-        errorDiv.id = 'errorDiv';
-
+        
         var overlayDiv = document.createElement('div');
         overlayDiv.id = 'overlay';
         overlayDiv.className = 'overlay';
@@ -334,8 +393,8 @@ var Tictac = function (player1, player2) {
         optionsDiv.appendChild(optionsDivRow1);
         optionsDiv.appendChild(optionsDivRow2);
         optionsDiv.appendChild(optionsDivRow3);
-        optionsDiv.appendChild(errorDiv);
-        optionsDiv.appendChild(timerDiv);
+        //optionsDiv.appendChild(errorDiv);
+        //optionsDiv.appendChild(timerDiv);
 
         optionsDiv.style.width = rows.style.width;
         board.appendChild(optionsDiv);
@@ -389,7 +448,8 @@ var Tictac = function (player1, player2) {
         if (isWinner(i)) {
             i=0;
             while (i < a[0].length) {
-            document.getElementById(row+','+i).className+=' blink_cell';
+            document.getElementById(row+','+i).className='win_boxes blink_cell';
+            applyBackground(document.getElementById(row+','+i),document.getElementById(row+','+i).style.background);
             i++;
             };
             return true;
@@ -405,7 +465,8 @@ var Tictac = function (player1, player2) {
         if (isWinner(i)) {
             i=0;
             while (i < a.length) {
-            document.getElementById(i+','+col).className+=' blink_cell';
+            document.getElementById(i+','+col).className='win_boxes blink_cell';
+            applyBackground(document.getElementById(i+','+col),document.getElementById(i+','+col).style.background);
             i++;
             };
             return true;
@@ -424,7 +485,8 @@ var Tictac = function (player1, player2) {
         if (isWinner(i)) {
             i=0;
             while (i < a[0].length) {
-            document.getElementById(i+','+i).className+=' blink_cell';
+            document.getElementById(i+','+i).className='win_boxes blink_cell';
+            applyBackground(document.getElementById(i+','+i),document.getElementById(i+','+i).style.background);
             i++;
             };
             return true;
@@ -444,7 +506,8 @@ var Tictac = function (player1, player2) {
         if (isWinner(i)) {
             i=0;
             while (i < a[0].length) {
-            document.getElementById(i+','+(a.length-1-i)).className+=' blink_cell';
+            document.getElementById(i+','+(a.length-1-i)).className='win_boxes blink_cell';
+            applyBackground(document.getElementById(i+','+(a.length-1-i)),document.getElementById(i+','+(a.length-1-i)).style.background);
             i++;
             };
             return true;
@@ -452,6 +515,20 @@ var Tictac = function (player1, player2) {
 
         }
         return false;
+    };
+
+    function applyBackground(node,color){
+        var parentNode=node.parentNode;
+        if(parentNode.className.indexOf('pink')!=-1){
+            color='pink';
+        }else if(parentNode.className.indexOf('blue')!=-1){
+            color='blue';
+        }else if(parentNode.className.indexOf('green')!=-1){
+            color='green';
+        }
+       // color='#00000';
+       var background='-webkit-gradient( linear, left top, right bottom, from('+color+'),color-stop(48%,'+color+'), color-stop(49%, rgb(245, 245, 245)),color-stop(50%,'+color+') );';
+        node.style.background+='#ffffff';
     };
 
     function Player() {
@@ -513,9 +590,14 @@ var Tictac = function (player1, player2) {
 
 
 
+
+
+
     };
 
 };
+
+
 
 function game() {
     var game_obj = new Tictac(); //get specific element to be added to
