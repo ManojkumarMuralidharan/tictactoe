@@ -256,6 +256,10 @@ var Tictac = function (player1, player2) {
                         
                         var winMessage = new Messages('Game Over');
                         winMessage.setMessage(playerContext.getCurrentPlayerName() + ' Wins').addToQue();
+                        
+                        var score=document.getElementById(playerContext.getCurrentPlayerSymbol()+'_Score').innerHTML;
+                        score=(parseInt(score)+1);
+                        document.getElementById(playerContext.getCurrentPlayerSymbol()+'_Score').innerHTML=score;
                         playerContext.resetPlayerTurn();
                         alert(playerContext.getCurrentPlayerName()+' Wins');
                         clearBoard();
@@ -295,7 +299,12 @@ var Tictac = function (player1, player2) {
                     document.getElementById('overlay').className = 'overlay';
                    // document.getElementById('timerDiv').innerHTML='';
                     document.getElementById('timerDiv2').innerHTML='';
+                    var score=document.getElementById(playerContext.getCurrentPlayerSymbol()+'_Score').innerHTML;
+                    score=(parseInt(score)+1);
+                    document.getElementById(playerContext.getCurrentPlayerSymbol()+'_Score').innerHTML=score;
                     alert('Game Over! Times Up ! '+playerContext.getCurrentPlayerName()+' Wins');
+
+                    playerContext.resetPlayerTurn();
                     clearBoard();
                     totalTime=5;
                 }
