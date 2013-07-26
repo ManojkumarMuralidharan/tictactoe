@@ -1,8 +1,10 @@
-var Tictac = function (player1, player2) {
+var Tictac = function (attachElement) {
     var a ;
     var validate_flag = false;
     var playerContext = new Player();
-
+    if(!attachElement){
+        attachElement='body';
+    }
     buildBoard();
     var gamerTimer = new Timer();
 
@@ -330,12 +332,21 @@ var Tictac = function (player1, player2) {
         var rows_counter = 0;
         var col_counter = 0;
         var board = document.createElement('div');
-        var body = document.getElementsByTagName('body'); //Change to a specific element by id
+        
+        var body = document.getElementById(attachElement); //Change to a specific element by id
+        if(!body){
+            body = document.getElementsByTagName(attachElement);
+        }
         board.id = 'board';
         board.style.width='306px';
         board.style.float='left';
-        gameBoard
-        body[0].appendChild(board);
+        
+        if(document.getElementById(attachElement)){
+            body.appendChild(board);    
+        }else if(document.getElementsByTagName(attachElement)){
+            body[0].appendChild(board);    
+        }
+        
         for (; rows_counter < 3; rows_counter++) {
             rows = document.createElement('div');
             rows.id = 'row' + (rows_counter + 1);
